@@ -8,4 +8,6 @@
     <string name="item_fork">Fork: %1$s</string>
     <string name="item_watches">Watches: %1$s</string>
     <string name="web_to_github"><![CDATA[input code to GitHube ->]]></string>
+    <string name="error_author_mess">The authorization request is still pending</string>
+    <string name="login_success">Login success</string>
 </resources>

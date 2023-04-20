@@ -1,4 +1,4 @@
-package com.example.clientgithub.retrofit;
+package com.example.clientgithub.retrofit.gitHubAuthentication;
 
 import com.example.clientgithub.BuildConfig;
 import com.google.gson.GsonBuilder;
@@ -12,10 +12,10 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NetworkRetrofit {
-    private static final String BASE_URL_API = "https://api.github.com";
+public class NetworkRetrofitAuth {
+    private static final String BASE_URL_API = "https://github.com";
 
-    public ServiceGitHubAPI getRetrofit() {
+    public ServiceGitHubAuthentication getRetrofit() {
 
         Retrofit retrofit = new Retrofit
                 .Builder()
@@ -25,7 +25,7 @@ public class NetworkRetrofit {
                 .client(getHttpClient())
                 .build();
 
-        return retrofit.create(ServiceGitHubAPI.class);
+        return retrofit.create(ServiceGitHubAuthentication.class);
     }
 
     private static final long TIME_OUT_CONNECT = 10L;
@@ -45,10 +45,8 @@ public class NetworkRetrofit {
             Request.Builder request = original.newBuilder();
 
             request
-                    //.header("Authorization", "Token " + token)
+                    .header("Accept", "application/json")
                     .header("User-Agent", "Android/" + BuildConfig.APPLICATION_ID + "/" + BuildConfig.VERSION_CODE + "/" + BuildConfig.VERSION_NAME);
-
-
 
             Request builder = request.method(original.method(), original.body()).build();
             return chain.proceed(builder);

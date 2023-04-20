@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_root"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/fragmentAuthentication"
+        android:name="com.example.clientgithub.ui.fragments.FragmentAuthentication"
+        android:label="fragmentAuthentication"
+        tools:layout="@layout/fragment_authentication" >
+
+        <action
+            android:id="@+id/action_fragmentAuthentication_to_fragmentViewRepository"
+            app:destination="@id/fragmentViewRepository" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.clientgithub.ui.spashFragment.SplashFragment"
+        android:label="SplashScreenFragment"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_splashScreenFragment_to_fragmentAuthentication"
+            app:destination="@id/fragmentAuthentication" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_fragmentViewRepository"
+            app:destination="@id/fragmentViewRepository" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentViewRepository"
+        android:name="com.example.clientgithub.ui.fragments.FragmentViewRepository"
+        android:label="fragmentViewRepository"
+        tools:layout="@layout/fragment_view_repository" />
+
+</navigation>

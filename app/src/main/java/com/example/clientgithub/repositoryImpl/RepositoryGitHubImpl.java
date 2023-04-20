@@ -9,7 +9,8 @@ import com.example.clientgithub.dataSource.dataRepositorySource.Repository;
 import com.example.clientgithub.dataSource.dataRepositorySource.ResponseRepositoryDto;
 import com.example.clientgithub.dataSource.dataUserSource.ResponseUserDto;
 import com.example.clientgithub.dataSource.dataUserSource.User;
-import com.example.clientgithub.retrofit.ServiceGitHubAPI;
+import com.example.clientgithub.retrofit.gitHubApi.ServiceGitHubAPI;
+import com.example.clientgithub.retrofit.gitHubAuthentication.ServiceGitHubAuthentication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +18,14 @@ import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.core.Single;
 
-public class RepositoryGitHubApiImpl implements InterfaceRepository {
+public class RepositoryGitHubImpl implements InterfaceRepository {
 
     private final ServiceGitHubAPI serviceGitHubAPI;
+    private final ServiceGitHubAuthentication serviceGitHubAuthAPI;
 
-    public RepositoryGitHubApiImpl(ServiceGitHubAPI serviceGitHubAPI) {
+    public RepositoryGitHubImpl(ServiceGitHubAPI serviceGitHubAPI, ServiceGitHubAuthentication serviceGitHubAuthAPI) {
         this.serviceGitHubAPI = serviceGitHubAPI;
+        this.serviceGitHubAuthAPI = serviceGitHubAuthAPI;
     }
 
     @Override
@@ -37,12 +40,12 @@ public class RepositoryGitHubApiImpl implements InterfaceRepository {
 
     @Override
     public Single<ResponseCodeDto> getCode(String clientId) {
-        return serviceGitHubAPI.getCode(clientId);
+        return serviceGitHubAuthAPI.getCode(clientId);
     }
 
     @Override
     public Single<ResponseTokenDto> getToken(String clientId, String deviceCode, String grantType) {
-        return serviceGitHubAPI.getToken(clientId, deviceCode, grantType);
+        return serviceGitHubAuthAPI.getToken(clientId, deviceCode, grantType);
     }
 
     @Override

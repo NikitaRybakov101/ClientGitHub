@@ -6,8 +6,9 @@ import static com.example.clientgithub.ui.viewModel.dataSourse.StateDataConst.NE
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.clientgithub.repositoryImpl.RepositoryGitHubApiImpl;
-import com.example.clientgithub.retrofit.NetworkRetrofit;
+import com.example.clientgithub.repositoryImpl.RepositoryGitHubImpl;
+import com.example.clientgithub.retrofit.gitHubApi.NetworkRetrofit;
+import com.example.clientgithub.retrofit.gitHubAuthentication.NetworkRetrofitAuth;
 import com.example.clientgithub.ui.viewModel.dataSourse.StateData;
 import com.example.clientgithub.ui.viewModel.interfacesViewModel.FragmentInterfaceViewModelRepositoryView;
 
@@ -18,7 +19,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FragmentViewModelRepositoryView extends ViewModel implements FragmentInterfaceViewModelRepositoryView {
     private final MutableLiveData<StateData> liveData = new MutableLiveData<>();
-    private final RepositoryGitHubApiImpl repository = new RepositoryGitHubApiImpl(new NetworkRetrofit().getRetrofit());
+    private final RepositoryGitHubImpl repository = new RepositoryGitHubImpl(new NetworkRetrofit().getRetrofit(),new NetworkRetrofitAuth().getRetrofit());
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     @Override
     public MutableLiveData<StateData> getLiveData() {
@@ -53,7 +54,7 @@ public class FragmentViewModelRepositoryView extends ViewModel implements Fragme
     public void getUser(String token) {
 
         try {
-            liveData.setValue(new StateData.LoadingUser(LOADING));
+            liveData.setValue(new StateData.Loading(LOADING));
 
             Disposable disposable = repository.getUser(token)
                     .subscribeOn(Schedulers.io())

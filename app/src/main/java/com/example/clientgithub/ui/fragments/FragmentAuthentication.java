@@ -1,6 +1,7 @@
 package com.example.clientgithub.ui.fragments;
 
 import static com.example.clientgithub.sharedPreference.SharedPreference.TOKEN_KEY;
+import static com.example.clientgithub.ui.viewModel.dataSourse.StateDataConst.AUTHORIZATION_ERROR;
 
 import android.content.Intent;
 import android.media.tv.TvInputInfo;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.clientgithub.R;
 import com.example.clientgithub.dataSource.authenticationSource.Code;
@@ -90,13 +92,12 @@ public class FragmentAuthentication extends Fragment {
     private void setCode(Code code) {
         binding.textCode.setText(code.getUserCode());
         binding.toGitHub.setText(R.string.web_to_github);
+        binding.loginButton.setVisibility(View.VISIBLE);
 
         binding.toGitHub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 tohWebGitHub(code.getVerificationUri());
-
-                binding.loginButton.setVisibility(View.VISIBLE);
             }
         });
 
@@ -115,12 +116,14 @@ public class FragmentAuthentication extends Fragment {
     }
 
     private void loginWithToken(Token token) {
-        SharedPreference.saveToken("Bearer "+token.getAccess_token()+"",TOKEN_KEY,requireActivity());
+        if(!token.getAccess_token().equals("null")) {
+            Toast.makeText(getContext(), R.string.login_success,Toast.LENGTH_LONG).show();
 
-        getParentFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, new FragmentViewRepository())
-                .commit();
+            SharedPreference.saveToken("Bearer "+token.getAccess_token()+"",TOKEN_KEY,requireActivity());
+            NavHostFragment.findNavController(this).navigate(R.id.action_fragmentAuthentication_to_fragmentViewRepository);
+        } else  {
+            Toast.makeText(getContext(), R.string.error_author_mess,Toast.LENGTH_LONG).show();
+        }
     }
 
 }

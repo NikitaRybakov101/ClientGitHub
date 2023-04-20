@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.example.clientgithub.R;
 import com.example.clientgithub.databinding.FragmentSplashBinding;
 import com.example.clientgithub.sharedPreference.SharedPreference;
@@ -40,20 +42,22 @@ public class SplashFragment extends Fragment {
                 String token = SharedPreference.loadToken(TOKEN_KEY,requireActivity());
 
                 if(!token.isEmpty()) {
-                    getParentFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.container, new FragmentViewRepository())
-                            .commit();
+                    navigateToFragmentViewRepository();
                 } else  {
-                    getParentFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.container, new FragmentAuthentication())
-                            .commit();
+                    navigateToFragmentAuthentication();
                 }
             }
         }, TIME_ANIMATION_MILLIS);
 
         initLoadingSplash();
+    }
+
+    private void navigateToFragmentAuthentication() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_splashScreenFragment_to_fragmentAuthentication);
+    }
+
+    private void navigateToFragmentViewRepository() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_splashScreenFragment_to_fragmentViewRepository);
     }
 
     private void initLoadingSplash() {

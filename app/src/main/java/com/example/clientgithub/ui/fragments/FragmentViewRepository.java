@@ -49,6 +49,7 @@ public class FragmentViewRepository extends Fragment implements CallBackItem {
         initView();
 
         getUser();
+        getListRepository();
     }
 
     private void initViewModel() {
@@ -57,9 +58,9 @@ public class FragmentViewRepository extends Fragment implements CallBackItem {
 
     private void render(StateData appState) {
 
-        if (appState instanceof StateData.LoadingUser) {
-            binding.loadingViewUser.setVisibility(View.VISIBLE);
+        if (appState instanceof StateData.Loading) {
             binding.loadingView.setVisibility(View.VISIBLE);
+            binding.loadingViewUser.setVisibility(View.VISIBLE);
         }
 
         if (appState instanceof StateData.SuccessRepository) {
@@ -73,7 +74,6 @@ public class FragmentViewRepository extends Fragment implements CallBackItem {
             User user = ((StateData.SuccessUser) appState).getData();
 
             createHeaderUser(user);
-            getListRepository();
             binding.loadingViewUser.setVisibility(View.GONE);
         }
 

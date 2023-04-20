@@ -19,16 +19,6 @@ public interface StateData {
         }
     }
 
-    class LoadingUser implements StateData {
-        private final String loadingMess;
-        public LoadingUser(String loadingMess) {
-            this.loadingMess = loadingMess;
-        }
-
-        public String getLoadingMess() {
-            return loadingMess;
-        }
-    }
     class SuccessRepository implements StateData {
         private final List<Repository> data;
         public SuccessRepository(List<Repository> data) {
