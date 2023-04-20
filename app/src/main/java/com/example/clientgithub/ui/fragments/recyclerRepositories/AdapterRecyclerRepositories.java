@@ -1,4 +1,4 @@
-package com.example.clientgithub.ui.fragments.recycler;
+package com.example.clientgithub.ui.fragments.recyclerRepositories;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -58,7 +58,7 @@ public class AdapterRecyclerRepositories extends RecyclerView.Adapter<AdapterRec
             binding.itemsLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    callBackItem.clickedItem(repository.getNameRepository());
+                    callBackItem.clickedItem(repository.getNameRepository(),repository.getOwner());
                 }
             });
         }

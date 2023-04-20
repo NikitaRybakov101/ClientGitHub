@@ -2,6 +2,7 @@ package com.example.clientgithub.ui.viewModel.dataSourse;
 
 import com.example.clientgithub.dataSource.authenticationSource.Code;
 import com.example.clientgithub.dataSource.authenticationSource.Token;
+import com.example.clientgithub.dataSource.commitsSource.Commit;
 import com.example.clientgithub.dataSource.dataRepositorySource.Repository;
 import com.example.clientgithub.dataSource.dataUserSource.User;
 
@@ -35,6 +36,16 @@ public interface StateData {
             this.data = data;
         }
         public User getData() {
+            return data;
+        }
+    }
+
+    class SuccessCommits implements StateData {
+        private final List<Commit> data;
+        public SuccessCommits(List<Commit> data) {
+            this.data = data;
+        }
+        public List<Commit> getData() {
             return data;
         }
     }

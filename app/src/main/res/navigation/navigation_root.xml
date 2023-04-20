@@ -34,6 +34,16 @@
         android:id="@+id/fragmentViewRepository"
         android:name="com.example.clientgithub.ui.fragments.FragmentViewRepository"
         android:label="fragmentViewRepository"
-        tools:layout="@layout/fragment_view_repository" />
+        tools:layout="@layout/fragment_view_repository" >
+        <action
+            android:id="@+id/action_fragmentViewRepository_to_fragmentViewCommits"
+            app:destination="@id/fragmentViewCommits" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentViewCommits"
+        android:name="com.example.clientgithub.ui.fragments.FragmentViewCommits"
+        android:label="fragmentViewCommits"
+        tools:layout="@layout/fragment_view_commits" />
 
 </navigation>

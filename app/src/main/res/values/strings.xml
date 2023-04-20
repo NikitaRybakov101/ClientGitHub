@@ -16,4 +16,8 @@
     <string name="auth_git_hub">Authentication Git Hub</string>
     <string name="get_code">get code</string>
     <string name="login">login</string>
+    <string name="commit_mess">Commit message: %1$s</string>
+    <string name="author">Author: %1$s</string>
+    <string name="date">date: %1$s</string>
+    <string name="sha">sha: %1$s</string>
 </resources>

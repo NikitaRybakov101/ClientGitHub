@@ -1,6 +1,8 @@
 package com.example.clientgithub.ui.fragments;
 
 import static com.example.clientgithub.sharedPreference.SharedPreference.TOKEN_KEY;
+import static com.example.clientgithub.ui.fragments.FragmentViewCommits.KEY_OWNER;
+import static com.example.clientgithub.ui.fragments.FragmentViewCommits.KEY_REPOSITORY;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,17 +12,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.clientgithub.R;
+import com.example.clientgithub.dataSource.dataRepositorySource.Owner;
 import com.example.clientgithub.dataSource.dataRepositorySource.Repository;
 import com.example.clientgithub.dataSource.dataUserSource.User;
 import com.example.clientgithub.databinding.FragmentViewRepositoryBinding;
 import com.example.clientgithub.sharedPreference.SharedPreference;
-import com.example.clientgithub.ui.fragments.recycler.AdapterRecyclerRepositories;
-import com.example.clientgithub.ui.fragments.recycler.CallBackItem;
+import com.example.clientgithub.ui.fragments.recyclerRepositories.AdapterRecyclerRepositories;
+import com.example.clientgithub.ui.fragments.recyclerRepositories.CallBackItem;
 import com.example.clientgithub.ui.viewModel.FragmentViewModelRepositoryView;
 import com.example.clientgithub.ui.viewModel.dataSourse.StateData;
 
@@ -119,7 +123,11 @@ public class FragmentViewRepository extends Fragment implements CallBackItem {
     }
 
     @Override
-    public void clickedItem(String nameRepository) {
+    public void clickedItem(String nameRepository, Owner owner) {
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY_REPOSITORY,nameRepository);
+        bundle.putString(KEY_OWNER,owner.getLogin());
 
+        NavHostFragment.findNavController(this).navigate(R.id.action_fragmentViewRepository_to_fragmentViewCommits,bundle);
     }
 }

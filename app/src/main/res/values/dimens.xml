@@ -6,4 +6,5 @@
     <dimen name="margin_very_small">8dp</dimen>
 
     <dimen name="padding_content">8dp</dimen>
+    <dimen name="padding_content_small">4dp</dimen>
 </resources>

@@ -4,6 +4,8 @@ import com.example.clientgithub.dataSource.authenticationSource.Code;
 import com.example.clientgithub.dataSource.authenticationSource.ResponseCodeDto;
 import com.example.clientgithub.dataSource.authenticationSource.ResponseTokenDto;
 import com.example.clientgithub.dataSource.authenticationSource.Token;
+import com.example.clientgithub.dataSource.commitsSource.Commit;
+import com.example.clientgithub.dataSource.commitsSource.ResponseCommitDto;
 import com.example.clientgithub.dataSource.dataRepositorySource.Owner;
 import com.example.clientgithub.dataSource.dataRepositorySource.Repository;
 import com.example.clientgithub.dataSource.dataRepositorySource.ResponseRepositoryDto;
@@ -29,7 +31,7 @@ public class RepositoryGitHubImpl implements InterfaceRepository {
     }
 
     @Override
-    public Single<List<ResponseRepositoryDto>> getListPoison(String token) {
+    public Single<List<ResponseRepositoryDto>> getListRepositories(String token) {
         return serviceGitHubAPI.getListRepository(token);
     }
 
@@ -46,6 +48,11 @@ public class RepositoryGitHubImpl implements InterfaceRepository {
     @Override
     public Single<ResponseTokenDto> getToken(String clientId, String deviceCode, String grantType) {
         return serviceGitHubAuthAPI.getToken(clientId, deviceCode, grantType);
+    }
+
+    @Override
+    public Single<List<ResponseCommitDto>> getListCommits(String owner, String token, String nameRepo) {
+        return serviceGitHubAPI.getListCommits(owner, nameRepo, token);
     }
 
     @Override
@@ -102,6 +109,24 @@ public class RepositoryGitHubImpl implements InterfaceRepository {
                 notNullVal(responseTokenDto.getAccess_token()),
                 notNullVal(responseTokenDto.getToken_type())
         );
+    }
+
+    @Override
+    public List<Commit> mapResponseCommitToCommit(List<ResponseCommitDto> responseCommitDtoList) {
+
+        if(responseCommitDtoList == null) {
+            return new ArrayList<>();
+        } else {
+            return responseCommitDtoList
+                    .stream()
+                    .map( repoDto -> new Commit(
+                            notNullVal(repoDto.getCommit().getAuthor().getName()) ,
+                            notNullVal(repoDto.getCommit().getAuthor().getDate()) ,
+                            notNullVal(repoDto.getCommit().getMessage()),
+                            notNullVal(repoDto.getSha())
+                    ))
+                    .collect(Collectors.toList());
+        }
     }
 
     private String notNullVal(String value) {

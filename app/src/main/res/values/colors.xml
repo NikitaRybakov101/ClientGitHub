@@ -13,5 +13,6 @@
     <color name="buttonLoginColor">#598FE8</color>
     <color name="buttonGetCodeColor">#5B5E63</color>
     <color name="textColorVisibility">#FF9800</color>
+    <color name="darkGrayTextColor">#494A4C</color>
 
 </resources>
