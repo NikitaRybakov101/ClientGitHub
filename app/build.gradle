@@ -66,4 +66,10 @@ dependencies {
 
     //okHttp
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttp"
+
+    //dagger
+    implementation "com.google.dagger:dagger-android:$dagger"
+    implementation "com.google.dagger:dagger-android-support:$dagger"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$kaptProcessor"
+    annotationProcessor "com.google.dagger:dagger-compiler:$kaptCompiler"
 }

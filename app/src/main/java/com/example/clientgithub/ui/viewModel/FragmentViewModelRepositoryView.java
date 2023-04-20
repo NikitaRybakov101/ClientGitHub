@@ -12,6 +12,8 @@ import com.example.clientgithub.retrofit.gitHubAuthentication.NetworkRetrofitAut
 import com.example.clientgithub.ui.viewModel.dataSourse.StateData;
 import com.example.clientgithub.ui.viewModel.interfacesViewModel.FragmentInterfaceViewModelRepositoryView;
 
+import javax.inject.Inject;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -19,11 +21,21 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FragmentViewModelRepositoryView extends ViewModel implements FragmentInterfaceViewModelRepositoryView {
     private final MutableLiveData<StateData> liveData = new MutableLiveData<>();
-    private final RepositoryGitHubImpl repository = new RepositoryGitHubImpl(new NetworkRetrofit().getRetrofit(),new NetworkRetrofitAuth().getRetrofit());
+    private final RepositoryGitHubImpl repository;
+
+
+ //   new RepositoryGitHubImpl(new NetworkRetrofit().getRetrofit(),new NetworkRetrofitAuth().getRetrofit())
+
+
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     @Override
     public MutableLiveData<StateData> getLiveData() {
         return liveData;
+    }
+
+    @Inject
+    public FragmentViewModelRepositoryView(RepositoryGitHubImpl repository) {
+        this.repository = repository;
     }
     @Override
     public void getListRepository(String token) {

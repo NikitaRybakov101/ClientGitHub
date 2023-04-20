@@ -8,6 +8,9 @@ buildscript {
         okHttp = "4.10.0"
         glide_version = '4.15.1'
         navigation_version = '2.5.3'
+        dagger = "2.43.2"
+        kaptProcessor = "2.38"
+        kaptCompiler = "2.40.1"
     }
 }
 

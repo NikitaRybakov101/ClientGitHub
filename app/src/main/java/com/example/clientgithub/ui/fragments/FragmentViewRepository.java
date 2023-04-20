@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,10 +31,17 @@ import com.example.clientgithub.ui.viewModel.dataSourse.StateData;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.android.support.AndroidSupportInjection;
+
 public class FragmentViewRepository extends Fragment implements CallBackItem {
     private static final float CARD_ELEVATION = 0f;
     private FragmentViewRepositoryBinding binding;
-    private final FragmentViewModelRepositoryView viewModel = new FragmentViewModelRepositoryView();
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+    private FragmentViewModelRepositoryView viewModel;
     private String token = "";
 
     @Nullable
@@ -46,6 +54,9 @@ public class FragmentViewRepository extends Fragment implements CallBackItem {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        AndroidSupportInjection.inject(this);
+
+        viewModel = new ViewModelProvider(this, viewModelFactory).get(FragmentViewModelRepositoryView.class);
 
         token = SharedPreference.loadToken(TOKEN_KEY,requireActivity());
 
