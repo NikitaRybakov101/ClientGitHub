@@ -2,6 +2,7 @@ package com.example.clientgithub.di;
 
 import android.app.Application;
 
+import com.example.clientgithub.app.App;
 import com.example.clientgithub.di.modules.AppModule;
 
 import dagger.BindsInstance;
@@ -21,4 +22,5 @@ public interface InterfaceAppComponent {
 
         InterfaceAppComponent build();
     }
+    void inject(App app);
 }
