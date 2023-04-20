@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">ClientGitHub</string>
+    <string name="app_name">Client GitHub</string>
+
+    <string name="item_author">Author: %1$s</string>
+    <string name="item_repository">Repository: %1$s</string>
+    <string name="item_description">Description: %1$s</string>
+    <string name="item_visibility">Visibility: %1$s</string>
+    <string name="item_fork">Fork: %1$s</string>
+    <string name="item_watches">Watches: %1$s</string>
+    <string name="web_to_github"><![CDATA[input code to GitHube ->]]></string>
 </resources>

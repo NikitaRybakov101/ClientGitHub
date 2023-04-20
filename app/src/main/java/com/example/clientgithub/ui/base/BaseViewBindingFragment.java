@@ -8,45 +8,34 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewbinding.ViewBinding;
 
-public class BaseViewBindingFragment<VB> extends Fragment {
-  /*  private VB binding;
+import io.reactivex.rxjava3.functions.Function3;
+import kotlinx.coroutines.CoroutineScope;
+import kotlinx.coroutines.Dispatchers;
 
+public abstract class BaseViewBindingFragment<VB extends ViewBinding> extends Fragment {
+    private VB _binding;
 
-    public BaseViewBindingFragment( (LayoutInflater, ViewGroup, Boolean) -> VB inflate) {
+    private final Function3<LayoutInflater, ViewGroup, Boolean, VB> inflate;
 
+    public BaseViewBindingFragment(Function3<LayoutInflater, ViewGroup, Boolean, VB> inflate) {
+        this.inflate = inflate;
     }
-
 
     public VB getBinding() {
-        return binding ?: throw IllegalStateException("Trying to access binding");
-    }
-    //val binding get() = _binding ?: throw IllegalStateException("Trying to access binding")
-
-
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View {
-        _binding = inflate(inflater, container, false)
-
-        return binding.root
+        return _binding;
     }
 
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-
-        binding = inflate(inflater, container, false);
-        return binding
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       // _binding = inflate.apply(inflater, container, false);
+        return getBinding().getRoot();
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        uiScope.cancel()
-    }*/
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        _binding = null;
+    }
 }

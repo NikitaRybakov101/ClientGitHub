@@ -3,7 +3,10 @@ buildscript {
     ext {
         retrofit_version = "2.9.0"
         lottieVersion = "3.4.0"
-        coil_version = "2.0.0"
+        rxAndroid = "3.0.0"
+        rxJava = "3.1.5"
+        okHttp = "4.10.0"
+        glide_version = '4.15.1'
     }
 }
 

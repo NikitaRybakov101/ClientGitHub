@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.clientgithub.ui.viewModel.dataSourse.StateData;
 
-public interface InterfaceViewModel {
+public interface FragmentInterfaceViewModelRepositoryView {
     MutableLiveData<StateData> getLiveData();
+    void getListRepository(String token);
+    void getUser(String token);
 }
