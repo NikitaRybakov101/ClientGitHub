@@ -1,7 +1,6 @@
 package com.example.clientgithub.dataSource.dataUserSource;
 
 public class User {
-
     String avatar_url;
     String login;
 

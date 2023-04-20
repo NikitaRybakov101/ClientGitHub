@@ -1,5 +1,6 @@
 package com.example.clientgithub.ui.viewModel;
 
+import static com.example.clientgithub.ui.viewModel.dataSourse.StateDataConst.AUTHORIZATION_ERROR;
 import static com.example.clientgithub.ui.viewModel.dataSourse.StateDataConst.LOADING;
 import static com.example.clientgithub.ui.viewModel.dataSourse.StateDataConst.NETWORK_ERROR;
 
@@ -65,7 +66,7 @@ public class FragmentViewModelAuthentication extends ViewModel implements Fragme
                                 liveData.setValue(new StateData.SuccessToken(result));
                             },
                             error -> {
-                                liveData.setValue(new StateData.Error(NETWORK_ERROR));
+                                liveData.setValue(new StateData.Error(AUTHORIZATION_ERROR));
                             }
                     );
             compositeDisposable.add(disposable);

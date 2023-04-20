@@ -1,5 +1,7 @@
 package com.example.clientgithub.ui.fragments;
 
+import static com.example.clientgithub.sharedPreference.SharedPreference.TOKEN_KEY;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,7 @@ public class FragmentViewRepository extends Fragment implements CallBackItem {
     private static final float CARD_ELEVATION = 0f;
     private FragmentViewRepositoryBinding binding;
     private final FragmentViewModelRepositoryView viewModel = new FragmentViewModelRepositoryView();
+    private String token = "";
 
     @Nullable
     @Override
@@ -39,15 +42,13 @@ public class FragmentViewRepository extends Fragment implements CallBackItem {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initViewModel();
 
+        token = SharedPreference.loadToken(TOKEN_KEY,requireActivity());
+
+        initViewModel();
         initView();
 
-        String token = SharedPreference.loadToken("KEY",requireActivity());
-
-        if(!token.isEmpty()) {
-            viewModel.getUser("Bearer "+token+"");
-        }
+        getUser();
     }
 
     private void initViewModel() {
@@ -72,6 +73,7 @@ public class FragmentViewRepository extends Fragment implements CallBackItem {
             User user = ((StateData.SuccessUser) appState).getData();
 
             createHeaderUser(user);
+            getListRepository();
             binding.loadingViewUser.setVisibility(View.GONE);
         }
 
@@ -81,6 +83,18 @@ public class FragmentViewRepository extends Fragment implements CallBackItem {
             Toast.makeText(getContext(),mess,Toast.LENGTH_LONG).show();
             binding.loadingView.setVisibility(View.GONE);
             binding.loadingViewUser.setVisibility(View.GONE);
+        }
+    }
+
+    private void getUser() {
+        if(!token.isEmpty()) {
+            viewModel.getUser(token);
+        }
+    }
+
+    private void getListRepository() {
+        if(!token.isEmpty()) {
+            viewModel.getListRepository(token);
         }
     }
 
@@ -102,11 +116,6 @@ public class FragmentViewRepository extends Fragment implements CallBackItem {
                 .into(binding.imageOwner);
 
         binding.nameOwner.setText(user.getLogin());
-
-        String token = SharedPreference.loadToken("KEY",requireActivity());
-        if(!token.isEmpty()) {
-            viewModel.getListRepository("Bearer "+token+"");
-        }
     }
 
     @Override

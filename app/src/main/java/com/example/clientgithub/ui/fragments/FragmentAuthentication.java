@@ -1,5 +1,7 @@
 package com.example.clientgithub.ui.fragments;
 
+import static com.example.clientgithub.sharedPreference.SharedPreference.TOKEN_KEY;
+
 import android.content.Intent;
 import android.media.tv.TvInputInfo;
 import android.net.Uri;
@@ -23,8 +25,11 @@ import com.example.clientgithub.ui.viewModel.FragmentViewModelAuthentication;
 import com.example.clientgithub.ui.viewModel.dataSourse.StateData;
 
 public class FragmentAuthentication extends Fragment {
-    private FragmentAuthenticationBinding binding;
 
+    private static final String CLIENT_ID = "57ee66f8686ae7a3b69c";
+    private static final String GRAND_TYPE = "urn:ietf:params:oauth:grant-type:device_code";
+
+    private FragmentAuthenticationBinding binding;
     private final FragmentViewModelAuthentication viewModel = new FragmentViewModelAuthentication();
 
     @Nullable
@@ -77,7 +82,7 @@ public class FragmentAuthentication extends Fragment {
         binding.getCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.getCode("57ee66f8686ae7a3b69c");
+                viewModel.getCode(CLIENT_ID);
             }
         });
     }
@@ -98,7 +103,7 @@ public class FragmentAuthentication extends Fragment {
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.getToken("57ee66f8686ae7a3b69c",code.getDevice_code(),"urn:ietf:params:oauth:grant-type:device_code");
+                viewModel.getToken(CLIENT_ID,code.getDevice_code(),GRAND_TYPE);
             }
         });
     }
@@ -110,7 +115,7 @@ public class FragmentAuthentication extends Fragment {
     }
 
     private void loginWithToken(Token token) {
-        SharedPreference.saveToken(token.getAccess_token(),"KEY",requireActivity());
+        SharedPreference.saveToken("Bearer "+token.getAccess_token()+"",TOKEN_KEY,requireActivity());
 
         getParentFragmentManager()
                 .beginTransaction()

@@ -5,9 +5,9 @@ import android.content.SharedPreferences;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.example.clientgithub.ui.activity.MainActivity;
-
 public final class SharedPreference {
+
+    public static final String TOKEN_KEY = "tokenKey";
 
     public static void saveToken(String token, String key, FragmentActivity activity) {
         SharedPreferences.Editor editor = activity.getPreferences(Context.MODE_PRIVATE).edit();

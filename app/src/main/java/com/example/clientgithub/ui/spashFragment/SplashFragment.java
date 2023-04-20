@@ -1,5 +1,7 @@
 package com.example.clientgithub.ui.spashFragment;
 
+import static com.example.clientgithub.sharedPreference.SharedPreference.TOKEN_KEY;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -35,7 +37,7 @@ public class SplashFragment extends Fragment {
             @Override
             public void run() {
 
-                String token = SharedPreference.loadToken("KEY",requireActivity());
+                String token = SharedPreference.loadToken(TOKEN_KEY,requireActivity());
 
                 if(!token.isEmpty()) {
                     getParentFragmentManager()
