@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,17 +21,25 @@ import com.example.clientgithub.dataSource.commitsSource.Commit;
 import com.example.clientgithub.databinding.FragmentViewCommitsBinding;
 import com.example.clientgithub.sharedPreference.SharedPreference;
 import com.example.clientgithub.ui.fragments.recyclerCommits.AdapterRecyclerCommits;
-import com.example.clientgithub.ui.viewModel.FragmentViewModelCommitsView;
+import com.example.clientgithub.ui.viewModel.ViewModelFragmentCommitsView;
+import com.example.clientgithub.ui.viewModel.ViewModelFragmentRepositoryView;
 import com.example.clientgithub.ui.viewModel.dataSourse.StateData;
 
 import java.util.List;
+
+import javax.inject.Inject;
+
+import dagger.android.support.AndroidSupportInjection;
 
 public class FragmentViewCommits extends Fragment {
     private static final float CARD_ELEVATION = 0f;
     public static final String KEY_REPOSITORY = "KEY_REPOSITORY";
     public static final String KEY_OWNER = "KEY_OWNER";
     private FragmentViewCommitsBinding binding;
-    private final FragmentViewModelCommitsView viewModel = new FragmentViewModelCommitsView();
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+    private ViewModelFragmentCommitsView viewModel;
 
     @Nullable
     @Override
@@ -60,6 +69,9 @@ public class FragmentViewCommits extends Fragment {
     }
 
     private void initViewModel() {
+        AndroidSupportInjection.inject(this);
+        viewModel = new ViewModelProvider(this,viewModelFactory).get(ViewModelFragmentCommitsView.class);
+
         viewModel.getLiveData().observe(getViewLifecycleOwner(), this::render);
     }
 

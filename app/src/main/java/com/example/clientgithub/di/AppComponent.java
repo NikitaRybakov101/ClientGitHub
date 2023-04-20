@@ -5,13 +5,16 @@ import android.app.Application;
 import com.example.clientgithub.app.App;
 import com.example.clientgithub.di.modules.AppModule;
 
+import javax.inject.Singleton;
+
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 import dagger.android.support.AndroidSupportInjectionModule;
 
 @Component(modules = { AndroidSupportInjectionModule.class, AndroidInjectionModule.class, AppModule.class})
-public interface InterfaceAppComponent {
+@Singleton
+public interface AppComponent {
     @Component.Builder
     interface Builder {
 
@@ -20,7 +23,8 @@ public interface InterfaceAppComponent {
 
         Builder appModule(AppModule appModule);
 
-        InterfaceAppComponent build();
+        AppComponent build();
     }
     void inject(App app);
 }
+

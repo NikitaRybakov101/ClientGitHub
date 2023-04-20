@@ -10,22 +10,28 @@ import com.example.clientgithub.repositoryImpl.RepositoryGitHubImpl;
 import com.example.clientgithub.retrofit.gitHubApi.NetworkRetrofit;
 import com.example.clientgithub.retrofit.gitHubAuthentication.NetworkRetrofitAuth;
 import com.example.clientgithub.ui.viewModel.dataSourse.StateData;
-import com.example.clientgithub.ui.viewModel.interfacesViewModel.FragmentInterfaceViewModelCommitsView;
+import com.example.clientgithub.ui.viewModel.interfacesViewModel.InterfaceFragmentViewModelCommitsView;
+
+import javax.inject.Inject;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class FragmentViewModelCommitsView extends ViewModel implements FragmentInterfaceViewModelCommitsView {
+public class ViewModelFragmentCommitsView extends ViewModel implements InterfaceFragmentViewModelCommitsView {
     private final MutableLiveData<StateData> liveData = new MutableLiveData<>();
-    private final RepositoryGitHubImpl repository = new RepositoryGitHubImpl(new NetworkRetrofit().getRetrofit(),new NetworkRetrofitAuth().getRetrofit());
+    private final RepositoryGitHubImpl repository;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     @Override
     public MutableLiveData<StateData> getLiveData() {
         return liveData;
     }
 
+    @Inject
+    public ViewModelFragmentCommitsView(RepositoryGitHubImpl repository) {
+        this.repository = repository;
+    }
     @Override
     public void getListCommits(String owner, String token, String nameRepo) {
 

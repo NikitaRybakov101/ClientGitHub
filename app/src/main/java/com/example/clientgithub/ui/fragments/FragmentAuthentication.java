@@ -1,13 +1,10 @@
 package com.example.clientgithub.ui.fragments;
 
 import static com.example.clientgithub.sharedPreference.SharedPreference.TOKEN_KEY;
-import static com.example.clientgithub.ui.viewModel.dataSourse.StateDataConst.AUTHORIZATION_ERROR;
 
 import android.content.Intent;
-import android.media.tv.TvInputInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.clientgithub.R;
@@ -23,8 +21,13 @@ import com.example.clientgithub.dataSource.authenticationSource.Code;
 import com.example.clientgithub.dataSource.authenticationSource.Token;
 import com.example.clientgithub.databinding.FragmentAuthenticationBinding;
 import com.example.clientgithub.sharedPreference.SharedPreference;
-import com.example.clientgithub.ui.viewModel.FragmentViewModelAuthentication;
+import com.example.clientgithub.ui.viewModel.ViewModelFragmentAuthentication;
+import com.example.clientgithub.ui.viewModel.ViewModelFragmentCommitsView;
 import com.example.clientgithub.ui.viewModel.dataSourse.StateData;
+
+import javax.inject.Inject;
+
+import dagger.android.support.AndroidSupportInjection;
 
 public class FragmentAuthentication extends Fragment {
 
@@ -32,7 +35,10 @@ public class FragmentAuthentication extends Fragment {
     private static final String GRAND_TYPE = "urn:ietf:params:oauth:grant-type:device_code";
 
     private FragmentAuthenticationBinding binding;
-    private final FragmentViewModelAuthentication viewModel = new FragmentViewModelAuthentication();
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+    private ViewModelFragmentAuthentication viewModel;
 
     @Nullable
     @Override
@@ -50,6 +56,9 @@ public class FragmentAuthentication extends Fragment {
     }
 
     private void initViewModel() {
+        AndroidSupportInjection.inject(this);
+        viewModel = new ViewModelProvider(this,viewModelFactory).get(ViewModelFragmentAuthentication.class);
+
         viewModel.getLiveData().observe(getViewLifecycleOwner(), this::render);
     }
 

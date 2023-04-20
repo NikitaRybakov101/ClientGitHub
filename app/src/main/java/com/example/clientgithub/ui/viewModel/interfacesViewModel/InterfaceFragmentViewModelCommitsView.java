@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.clientgithub.ui.viewModel.dataSourse.StateData;
 
-public interface FragmentInterfaceViewModelCommitsView {
+public interface InterfaceFragmentViewModelCommitsView {
     MutableLiveData<StateData> getLiveData();
 
     void getListCommits(String owner, String token, String nameRepo);

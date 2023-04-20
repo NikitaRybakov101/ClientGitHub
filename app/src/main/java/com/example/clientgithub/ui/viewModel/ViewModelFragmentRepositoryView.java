@@ -1,6 +1,5 @@
 package com.example.clientgithub.ui.viewModel;
 
-import static com.example.clientgithub.ui.viewModel.dataSourse.StateDataConst.AUTHORIZATION_ERROR;
 import static com.example.clientgithub.ui.viewModel.dataSourse.StateDataConst.LOADING;
 import static com.example.clientgithub.ui.viewModel.dataSourse.StateDataConst.NETWORK_ERROR;
 
@@ -8,39 +7,42 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.clientgithub.repositoryImpl.RepositoryGitHubImpl;
-import com.example.clientgithub.retrofit.gitHubApi.NetworkRetrofit;
-import com.example.clientgithub.retrofit.gitHubAuthentication.NetworkRetrofitAuth;
 import com.example.clientgithub.ui.viewModel.dataSourse.StateData;
-import com.example.clientgithub.ui.viewModel.interfacesViewModel.FragmentInterfaceViewModelAuthentication;
+import com.example.clientgithub.ui.viewModel.interfacesViewModel.InterfaceFragmentViewModelRepositoryView;
+
+import javax.inject.Inject;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class FragmentViewModelAuthentication extends ViewModel implements FragmentInterfaceViewModelAuthentication {
+public class ViewModelFragmentRepositoryView extends ViewModel implements InterfaceFragmentViewModelRepositoryView {
     private final MutableLiveData<StateData> liveData = new MutableLiveData<>();
-    private final RepositoryGitHubImpl repository = new RepositoryGitHubImpl(new NetworkRetrofit().getRetrofit(),new NetworkRetrofitAuth().getRetrofit());
+    private final RepositoryGitHubImpl repository;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-
     @Override
     public MutableLiveData<StateData> getLiveData() {
         return liveData;
     }
 
+    @Inject
+    public ViewModelFragmentRepositoryView(RepositoryGitHubImpl repository) {
+        this.repository = repository;
+    }
     @Override
-    public void getCode(String clientId) {
+    public void getListRepository(String token) {
 
         try {
             liveData.setValue(new StateData.Loading(LOADING));
 
-            Disposable disposable = repository.getCode(clientId)
+            Disposable disposable = repository.getListRepositories(token)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .map(repository::mapResponseCodeToCode)
+                    .map(repository::mapResponseToRepository)
                     .subscribe(
                             result -> {
-                                liveData.setValue(new StateData.SuccessCode(result));
+                                liveData.setValue(new StateData.SuccessRepository(result));
                             },
                             error -> {
                                 liveData.setValue(new StateData.Error(NETWORK_ERROR));
@@ -54,20 +56,21 @@ public class FragmentViewModelAuthentication extends ViewModel implements Fragme
     }
 
     @Override
-    public void getToken(String clientId, String deviceCode, String grantType) {
+    public void getUser(String token) {
 
         try {
+            liveData.setValue(new StateData.Loading(LOADING));
 
-            Disposable disposable = repository.getToken(clientId,deviceCode,grantType)
+            Disposable disposable = repository.getUser(token)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .map(repository::mapResponseTokenToToken)
+                    .map(repository::mapResponseToUser)
                     .subscribe(
                             result -> {
-                                liveData.setValue(new StateData.SuccessToken(result));
+                                liveData.setValue(new StateData.SuccessUser(result));
                             },
                             error -> {
-                                liveData.setValue(new StateData.Error(AUTHORIZATION_ERROR));
+                                liveData.setValue(new StateData.Error(NETWORK_ERROR));
                             }
                     );
             compositeDisposable.add(disposable);

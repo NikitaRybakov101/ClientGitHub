@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -26,7 +27,7 @@ import com.example.clientgithub.databinding.FragmentViewRepositoryBinding;
 import com.example.clientgithub.sharedPreference.SharedPreference;
 import com.example.clientgithub.ui.fragments.recyclerRepositories.AdapterRecyclerRepositories;
 import com.example.clientgithub.ui.fragments.recyclerRepositories.CallBackItem;
-import com.example.clientgithub.ui.viewModel.FragmentViewModelRepositoryView;
+import com.example.clientgithub.ui.viewModel.ViewModelFragmentRepositoryView;
 import com.example.clientgithub.ui.viewModel.dataSourse.StateData;
 
 import java.util.List;
@@ -38,10 +39,9 @@ import dagger.android.support.AndroidSupportInjection;
 public class FragmentViewRepository extends Fragment implements CallBackItem {
     private static final float CARD_ELEVATION = 0f;
     private FragmentViewRepositoryBinding binding;
-
     @Inject
     ViewModelProvider.Factory viewModelFactory;
-    private FragmentViewModelRepositoryView viewModel;
+    private ViewModelFragmentRepositoryView viewModel;
     private String token = "";
 
     @Nullable
@@ -54,9 +54,6 @@ public class FragmentViewRepository extends Fragment implements CallBackItem {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AndroidSupportInjection.inject(this);
-
-        viewModel = new ViewModelProvider(this, viewModelFactory).get(FragmentViewModelRepositoryView.class);
 
         token = SharedPreference.loadToken(TOKEN_KEY,requireActivity());
 
@@ -68,6 +65,9 @@ public class FragmentViewRepository extends Fragment implements CallBackItem {
     }
 
     private void initViewModel() {
+        AndroidSupportInjection.inject(this);
+        viewModel = new ViewModelProvider(this,viewModelFactory).get(ViewModelFragmentRepositoryView.class);
+
         viewModel.getLiveData().observe(getViewLifecycleOwner(), this::render);
     }
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.clientgithub.ui.viewModel.dataSourse.StateData;
 
-public interface FragmentInterfaceViewModelAuthentication {
+public interface InterfaceFragmentViewModelAuthentication {
 
     MutableLiveData<StateData> getLiveData();
     void getCode(String clientId);
