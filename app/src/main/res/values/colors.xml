@@ -9,5 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="lightGray">#97A0AC</color>
+    <color name="strokeColorCard">#ECECEC</color>
+    <color name="buttonLoginColor">#598FE8</color>
+    <color name="buttonGetCodeColor">#5B5E63</color>
+    <color name="textColorVisibility">#FF9800</color>
 
 </resources>

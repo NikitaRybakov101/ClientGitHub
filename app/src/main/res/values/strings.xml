@@ -7,7 +7,13 @@
     <string name="item_visibility">Visibility: %1$s</string>
     <string name="item_fork">Fork: %1$s</string>
     <string name="item_watches">Watches: %1$s</string>
-    <string name="web_to_github"><![CDATA[input code to GitHube ->]]></string>
+
+    <string name="web_to_github"><![CDATA[input code on GitHube ->]]></string>
+
     <string name="error_author_mess">The authorization request is still pending</string>
     <string name="login_success">Login success</string>
+
+    <string name="auth_git_hub">Authentication Git Hub</string>
+    <string name="get_code">get code</string>
+    <string name="login">login</string>
 </resources>

@@ -8,8 +8,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,9 +18,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Authentication Git Hub"
-            android:textSize="26sp"
             android:layout_gravity="center_horizontal"
+            android:text="@string/auth_git_hub"
+            android:textSize="26sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,10 +29,10 @@
             android:id="@+id/getCodeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="get code"
-            app:cornerRadius="16dp"
-            android:backgroundTint="#5B5E63"
             android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/buttonGetCodeColor"
+            android:text="@string/get_code"
+            app:cornerRadius="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="145dp" />
 
@@ -41,46 +41,46 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
+            android:visibility="gone"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            android:visibility="gone"
             app:lottie_url="https://assets4.lottiefiles.com/packages/lf20_p8bfn5to.json" />
 
         <TextView
             android:id="@+id/textCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="34dp"
-            tools:text="QWTI - DYUI"
-            android:textSize="26sp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_big"
+            android:textSize="26sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="QWTI - DYUI" />
 
         <TextView
             android:id="@+id/toGitHub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="input code to GitHube ->"
-            android:textColor="@color/black"
-            android:layout_marginTop="8dp"
-            android:textSize="14sp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_small"
+            android:textColor="@color/black"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="input code to GitHube ->" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="login app"
-            app:cornerRadius="16dp"
-            android:visibility="gone"
-            android:backgroundTint="#598FE8"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_small"
+            android:backgroundTint="@color/buttonLoginColor"
+            android:text="@string/login"
+            android:visibility="gone"
+            app:cornerRadius="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="145dp" />
 
